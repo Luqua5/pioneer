@@ -187,7 +187,10 @@ function onScrollDiv() {
     for (let key in planetes) {
         const planete = planetes[key];
         const rect = planete.div.getBoundingClientRect();
-        const isVisible = rect.top < window.innerHeight && rect.bottom > 0;
+        if(planete.div.id == 'div-terre'){
+        console.log(rect, window.innerHeight);
+        }
+        const isVisible = rect.top < 0 && rect.bottom > 0;
         animerPlanete(planete, isVisible);
     }
     lastScroll = currentScroll <= 0 ? 0 : currentScroll;;
