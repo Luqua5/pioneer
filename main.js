@@ -190,7 +190,7 @@ function onScrollDiv() {
         const isVisible = rect.top < window.innerHeight && rect.bottom > 0;
         animerPlanete(planete, isVisible);
     }
-    lastScroll = currentScroll;
+    lastScroll = currentScroll <= 0 ? 0 : currentScroll;;
 
 }
 
@@ -227,8 +227,9 @@ function animerPlanete(planete, isVisible) {
             display: 'none',
             ease: "power1.out"
         });
-        if(isVisible){
-            planete.passed = !planete.passed;
+        if(isVisible && !planete.passed){
+            console.log(planete);
+            planete.passed = true;
             gsap.to(planete.obj.position, {
                 duration: 1, 
                 x: positionPlanete.x, 
@@ -246,8 +247,9 @@ function animerPlanete(planete, isVisible) {
                 ease: "power1.out"
             });
             animerValeurCompteur(parseInt(compteur.innerText), planete.distance, 1500);
-        }else{
+        }else if(!isVisible){
             if(currentScroll > lastScroll && planete.passed){
+                planete.passed = false;
                 gsap.to(planete.obj.position, {
                     duration: 1, 
                     x: positionPlaneteApres.x, 
@@ -279,10 +281,8 @@ function animerValeurCompteur(debut, fin, duree) {
         let valeurActuelle;
 
         if (debut < fin) {
-            // Augmenter la valeur
             valeurActuelle = Math.min(debut + progress / duree * (fin - debut), fin);
         } else {
-            // Diminuer la valeur
             valeurActuelle = Math.max(debut - progress / duree * (debut - fin), fin);
         }
 
