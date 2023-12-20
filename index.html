@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>Pioneer</title>
+		<style>
+            @font-face {
+                font-family: 'virgo';
+                src: url('./public/virgo.ttf');
+            }
+			body { margin: 0; font-family: 'helvetica';}
+            canvas { width: 100vw; height: 100vh; display: block; position: fixed; top: 0; left: 0; z-index: 2;}
+            .video-background {
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                min-width: 100%;
+                min-height: 100%;
+                transform: translate(-50%, -50%);
+                z-index: 1;
+            }
+            .cont{
+                height: 200vh;
+            }
+            .mapContainer{
+                z-index: 3;
+                width: 100vw;
+                background-image: linear-gradient(to bottom, rgba(0,0,0,0), rgba(0,0,0,1));
+                position: fixed;
+                bottom: 0;
+                left: 50%;
+                transform: translate(-50%, 0);
+                margin: auto;
+                display: flex;
+                justify-content: center;
+                padding-bottom:50px ;
+            }
+            #map{
+                transform: scale(2);
+            }
+            .sonde{
+                position: absolute;
+                left: 45%;
+                top: 0;
+            }
+            .compteur{
+                position: fixed;
+                top: 5%;
+                right: 5%;
+                color: white;
+                z-index: 9;
+                font-size: 3rem;
+                font-weight: lighter;
+            }
+            .clickableElement{
+                cursor: pointer;
+            }
+            .cercle{
+                position: fixed;
+                z-index: 3;
+                transform: scale(0.5);
+                cursor: pointer;
+                transition: all 0.3s ease-in-out;
+            }
+            .cercle:hover{
+                transform: scale(0.6);
+            }
+            #humain{
+                top: 30%;
+                left: 60%;
+            }
+            #atome{
+                top: 8%;
+                left: 31%;
+            }
+            #pulsar{
+                top:45%;
+                left: 31%;
+            }
+            #mapCircle{
+                top: 75%;
+                left: 47%;
+            }
+            .information{
+                position: fixed;
+                width: 30%;
+                color: white;
+                font-size: 1.5rem;
+                font-weight: lighter;
+                z-index: 9;
+                line-height: 25px;
+                background-color: rgba(0,0,0,0.2);
+                backdrop-filter: blur(20px);
+                padding: 20px;
+                border-radius: 15px;
+                opacity: 0;
+                display: none;
+            }
+            .informationHumain{
+                top: 30%;
+                left: 10%;
+            }
+            .informationPulsar{
+                top: 20%;
+                left: 5%;
+            }
+            .informationAtome{
+                top: 20%;
+                left: 5%;
+                width: 35%;
+            }
+            .informationMap{
+                top: 50%;
+                left: 50%;
+                transform: translateX(-50%);
+            }
+            .informationPlanete{
+                position: fixed;
+                width: 40%;
+                color: white;
+                font-size: 1.5rem;
+                font-weight: lighter;
+                z-index: 9;
+                line-height: 25px;
+                background-color: rgba(0,0,0,0.2);
+                backdrop-filter: blur(20px);
+                padding: 20px;
+                border-radius: 15px;
+            }
+            .informationTerre{
+                top: 50%;
+                left: -50%;
+                transform: translate(-50%, -50%);
+            }
+            .informationMars{
+                top: 50%;
+                left: -50%;
+                transform: translate(-50%, -50%);
+            }
+            .informationJupiter{
+                top: 50%;
+                left: -50%;
+                transform: translate(-50%, -50%);
+            }
+		</style>
+	</head>
+	<body>
+        <span id="compteur" class="compteur"> <span id="valeur">0</span> km</span>
+
+        <div id="intro" class="intro cont"></div>
+        <div id="div-terre" class="cont1 cont"></div>
+        <div id="div-mars" class="cont2 cont"></div>
+        <div id="div-jupiter" class="cont3 cont"></div>
+        <div class="cont4 cont"></div>
+
+        <span id="informationTerre" class="informationPlanete informationTerre">
+            Alors que la sonde Pioneer quitte la proximité de la Terre, emportant avec elle la célèbre plaque Pioneer, nous sommes invités à réfléchir sur le début d'une odyssée extraordinaire. Cette mission marque non seulement un exploit remarquable dans l'exploration spatiale, mais aussi un message d'espoir et de curiosité envoyé dans l'infini cosmique. La plaque, gravée de symboles et de représentations, témoigne de notre existence et de notre désir de connecter avec d'éventuelles intelligences au-delà de notre monde.
+        </span>
+        <span id="informationMars" class="informationPlanete informationMars">
+            Lorsque la sonde Pioneer survole Mars, la planète rouge se dévoile dans toute sa splendeur mystérieuse. Mars, souvent imaginée comme le prochain grand bond pour l'humanité, représente un monde de questions non résolues et de possibilités futures. La fascination de l'humanité pour cet astre voisin s'étend à travers notre histoire et notre culture, symbolisant notre soif de découverte et notre désir ardent d'explorer. Alors que Pioneer continue son voyage audacieux à travers le système solaire, elle porte avec elle notre quête collective pour comprendre les secrets de Mars, une quête qui incarne l'esprit d'exploration et d'aventure qui caractérise notre espèce.
+        </span>
+        <span id="informationJupiter" class="informationPlanete informationJupiter">
+            En s'approchant de Jupiter, la sonde Pioneer nous offre une vue imprenable sur le géant gazeux, un titan parmi les planètes de notre système solaire. Jupiter, avec ses bandes colorées et sa grande tache rouge tourbillonnante, est un monde de mystères extrêmes et de phénomènes atmosphériques spectaculaires. Cette planète massive exerce une influence significative sur notre système solaire, son immense gravité agissant comme un gardien contre les objets célestes errants. En contemplant Jupiter à travers les yeux de Pioneer, nous sommes témoins de la grandeur et de la puissance de la nature, rappelant l'importance de notre quête pour comprendre notre place dans l'univers. L'exploration de Jupiter par Pioneer symbolise notre désir perpétuel de repousser les frontières de la connaissance et de découvrir ce qui se trouve au-delà de l'horizon connu.
+        </span>
+
+        <svg id="humain" class="cercle" width="120" height="120" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="60" cy="60" r="50" stroke="white" fill="transparent" stroke-width="5" />
+        </svg>
+        <svg id="atome" class="cercle" width="120" height="120" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="60" cy="60" r="50" stroke="white" fill="transparent" stroke-width="5" />
+        </svg>
+        <svg id="pulsar" class="cercle" width="120" height="120" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="60" cy="60" r="50" stroke="white" fill="transparent" stroke-width="5" />
+        </svg>
+        <svg id="mapCircle" class="cercle" width="120" height="120" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="60" cy="60" r="50" stroke="white" fill="transparent" stroke-width="5"/>
+        </svg>
+        
+        <span class="informationHumain information">
+            Sur cette plaque en aluminium anodisé, les figures d'un homme et d'une femme sont gravées, représentant l'espèce humaine. Ces figures sont dessinées dans l'intention de fournir des informations sur la forme et la taille des humains par rapport à la sonde elle-même, grâce à une représentation à l'échelle. Les humains sont représentés nus, dans une posture neutre, sans vêtements ou ornements, pour éviter toute confusion liée à la mode ou la culture spécifique à une époque ou une région.
+        </span>
+
+        <span class="informationPulsar information">
+            L'un des éléments les plus remarquables de cette plaque est un schéma précis qui vise à indiquer l'emplacement de la Terre dans notre galaxie, la Voie Lactée. Ce dessin, connu sous le nom de "diagramme des pulsars", utilise 14 lignes qui rayonnent depuis le même point pour représenter des pulsars, qui sont des étoiles à neutrons émettant des ondes radio périodiques. Ces lignes sont marquées avec des chiffres binaires qui codent les périodes des pulsars, permettant ainsi de déterminer leur position dans l'espace. Au bout de chaque ligne, un code binaire indique la période de rotation du pulsar correspondant, une donnée unique qui peut être utilisée pour identifier ces étoiles dans la galaxie. En se référant à ces pulsars, une civilisation extraterrestre serait en théorie capable de localiser notre système solaire.
+        </span>
+
+        <span class="informationAtome information">
+            Ce dessin n'est pas qu'une simple image d'un atome ; il s'agit d'une représentation schématique de la transition hyperfine de l'hydrogène, un phénomène quantique particulier. Dans cette représentation, deux cercles parallèles sont reliés par une ligne, symbolisant la transition électronique entre deux états énergétiques de l'atome d'hydrogène. Cette transition est associée à une fréquence radio très précise, environ 1420 MHz, qui est considérée comme un phénomène naturel universel et pourrait donc être reconnue par une intelligence extraterrestre. L'idée est d'utiliser cette fréquence comme une sorte d'unité de mesure universelle, car les lois de la physique et de la chimie, y compris les caractéristiques de l'hydrogène, sont constantes dans tout l'univers.
+        </span>
+
+        <span class="information informationMap">
+            Cette représentation montre le Soleil et les planètes du système solaire, y compris la Terre, disposés de manière à indiquer leur ordre et leur position relative. À côté de chaque planète, des traits sont utilisés pour indiquer la trajectoire des sondes Pioneer. L'objectif de cette carte est de fournir aux éventuelles civilisations extraterrestres un aperçu de l'origine de la sonde, en soulignant en particulier la position de la Terre.
+        </span>
+        
+        <div class="mapContainer">
+            <img class="sonde" src="./public/sonde.svg" alt="sonde">
+            <svg id="map" width="439" height="44" viewBox="0 0 439 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M45.5 22C45.5 33.8534 35.4476 43.5 23 43.5C10.5524 43.5 0.5 33.8534 0.5 22C0.5 10.1466 10.5524 0.5 23 0.5C35.4476 0.5 45.5 10.1466 45.5 22Z" stroke="white"/>
+                <circle cx="87" cy="29" r="3.5" stroke="white"/>
+                <circle cx="131" cy="30" r="2.5" stroke="white"/>
+                <circle id="terre_0" class="clickableElement" cx="175" cy="30" r="2.5" stroke="white" fill="transparent"/>
+                <circle id="mars_1" class="clickableElement" cx="218" cy="30" r="2.5" stroke="white" fill="transparent"/>
+                <circle id="jupiter_2" class="clickableElement" cx="259" cy="30" r="6.5" stroke="white" fill="transparent"/>
+                <circle id="uranus_4" class="clickableElement" cx="347.5" cy="30.5" r="4" stroke="white" fill="transparent"/>
+                <circle id="neptune_5" class="clickableElement" cx="392.5" cy="30.5" r="4" stroke="white" fill="transparent"/>
+                <circle id="pluton_6" class="clickableElement" cx="436.5" cy="30.5" r="2" stroke="white" fill="transparent"/>
+                <circle id="saturne_3" class="clickableElement" cx="303.5" cy="30.5" r="7" stroke="white" fill="transparent"/>
+                <line id="saturne_3" x1="291" y1="30.5" x2="315" y2="30.5" stroke="white" fill="transparent"/>
+            </svg>        
+        </div>
+        <video src="./public/fond.mp4" autoplay loop controls="false" playsinline="true" webkit-playsinline="true" preload="auto" muted="muted" class="video-background" id="video-background"></video>
+		<script type="module" src="/main.js"></script>
+	</body>
+</html>
