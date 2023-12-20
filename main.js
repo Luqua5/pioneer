@@ -211,6 +211,12 @@ function animerPlanete(planete, isVisible) {
                 display:'block',
                 ease: "power1.out"
             });
+            gsap.to('.mapContainer', {
+                duration: 1,
+                opacity: 0,
+                display: 'none',
+                ease: "power1.out"
+            });
         }else{
             gsap.to(planete.obj.position, {
                 duration: 1, 
@@ -219,14 +225,14 @@ function animerPlanete(planete, isVisible) {
                 z: positionTabletteInvisible.z, 
                 ease: "power1.out"
             });
+            gsap.to('.mapContainer', {
+                duration: 1,
+                opacity: 1,
+                display: 'flex',
+                ease: "power1.out"
+            });
         }        
     }else{
-        gsap.to('.information', {
-            duration: 0.5,
-            opacity: 0,
-            display: 'none',
-            ease: "power1.out"
-        });
         if(isVisible && !planete.passed){
             console.log(planete);
             planete.passed = true;
@@ -239,6 +245,12 @@ function animerPlanete(planete, isVisible) {
             });
             gsap.to(planete.description,{
                 left:'30%'
+            });
+            gsap.to('.information', {
+                duration: 0.5,
+                opacity: 0,
+                display: 'none',
+                ease: "power1.out"
             });
             gsap.to('.cercle',{
                 duration: 0.1,
