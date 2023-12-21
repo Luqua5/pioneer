@@ -193,6 +193,12 @@ let currentScroll = 0;
 document.addEventListener('scroll', onScrollDiv, false);
 
 function onScrollDiv() {
+    gsap.to('.fleche',{
+        duration: 0.5,
+        opacity: 0,
+        display: 'none',
+        ease: "power1.out"
+    });
     currentScroll = window.pageYOffset || document.documentElement.scrollTop;
     for (let key in planetes) {
         const planete = planetes[key];
@@ -262,6 +268,14 @@ function animerPlanete(planete, isVisible) {
                 display: 'block',
                 ease: "power1.out"
             });
+            if(planete.div.id == 'alien4'){
+                gsap.to('#rechargerPage',{
+                    duration: 1,
+                    display: 'block',
+                    opacity: 1,
+                    ease: "power1.out"
+                });
+            }
         }
     }
     if(planete.div.id == 'alien2' || planete.div.id == 'alien3'){
@@ -271,8 +285,8 @@ function animerPlanete(planete, isVisible) {
                 top: '25%',
                 ease: "power1.out"
             });
-
         }
+
     }
 
     if(planete.div.id == 'intro'){
@@ -311,7 +325,7 @@ function animerPlanete(planete, isVisible) {
                 ease: "power1.out"
             });
         }        
-    }else{
+    }else if(planete.div.id == 'div-terre' || planete.div.id == 'div-mars' || planete.div.id == 'div-jupiter'){
         if(isVisible && !planete.passed){
             gsap.to('.mapContainer', {
                 duration: 1,
@@ -577,7 +591,7 @@ function animate() {
     // Mettre à jour la position du satellite
     troisiemeObject.position.x = positionPlanete.x - rayonOrbite * Math.cos(angle);
     troisiemeObject.position.z = positionPlanete.z - rayonOrbite * Math.sin(angle);
-    //look at positionPlanete
+    
     troisiemeObject.lookAt(positionPlanete.x, positionPlanete.y, positionPlanete.z);
 
 	renderer.render( scene, camera );
@@ -588,7 +602,7 @@ function animate() {
 //FONCTIONNEMENT MAP 
 ///
 let SVG = document.getElementById('map');
-let clickableElement = SVG.querySelectorAll('.clickableElement'); // Remplacez par l'ID de l'élément SVG
+let clickableElement = SVG.querySelectorAll('.clickableElement'); 
 
 clickableElement.forEach(element => {
     element.addEventListener('click', function(){
@@ -602,5 +616,12 @@ clickableElement.forEach(element => {
         });
     })
 });
+
+document.getElementById('rechargerPage').addEventListener('click', function() {
+    window.scrollTo(0, 0);
+    location.reload(); 
+});
+
+document.getElementById('musiqueDeFond').volume = 0.25; // Réglez le volume à 50%
 
 animate();

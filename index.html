@@ -20,7 +20,7 @@
                 z-index: 1;
             }
             .cont{
-                height: 120vh;
+                height: 70vh;
             }
             .mapContainer{
                 z-index: 3;
@@ -202,9 +202,65 @@
                 opacity: 0;
                 display: none;
             }
+            #rechargerPage{
+                position: fixed;
+                z-index: 11;
+                right: 5%;
+                bottom: 10%;
+                width: 60px;
+                height: 60px;
+                cursor: pointer;
+                background-color: rgb(0, 0, 0);
+                border-radius: 50%;
+                display: none;
+                opacity: 0;
+                svg{
+                    width: 70%;
+                    height: 70%;
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                }
+            }
+
+            #alien4{
+                height: 150vh;
+            }
+            .fleche{
+                position: fixed;
+                z-index: 9;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                width: 150px;
+                animation: arrow 2s infinite;
+            }
+            @keyframes arrow{
+                0%{
+                    top:50%;
+                }
+                50%{
+                    top:65%;
+                }
+                100%{
+                    top:50%;
+                }
+            }
 		</style>
 	</head>
 	<body>
+        <img class="fleche" src="./public/downArrow.svg" alt="fleche vers le bas">
+
+        <audio autoplay loop id="musiqueDeFond">
+            <source src="./public/musique.mp3" type="audio/mpeg">
+            Votre navigateur ne supporte pas l'élément audio.
+        </audio>
+        
+        <div id="rechargerPage">
+            <svg fill="white" id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 118.04 122.88"><path d="M16.08,59.26A8,8,0,0,1,0,59.26a59,59,0,0,1,97.13-45V8a8,8,0,1,1,16.08,0V33.35a8,8,0,0,1-8,8L80.82,43.62a8,8,0,1,1-1.44-15.95l8-.73A43,43,0,0,0,16.08,59.26Zm22.77,19.6a8,8,0,0,1,1.44,16l-10.08.91A42.95,42.95,0,0,0,102,63.86a8,8,0,0,1,16.08,0A59,59,0,0,1,22.3,110v4.18a8,8,0,0,1-16.08,0V89.14h0a8,8,0,0,1,7.29-8l25.31-2.3Z"/></svg>
+        </div>
+
         <span id="compteur" class="compteur"> <span id="valeur">0</span> km</span>
 
         <span id="introo1" class="introo">
@@ -228,7 +284,7 @@
         </span>
 
         <span id="outroo3" class="introo">
-            Ces plaques demeurent un symbole poignant de notre désir de communiquer et de connecter, flottant dans l'espace comme des témoins silencieux de notre existence, dans l'attente peut-être d'être un jour découvertes par des yeux venus d'ailleurs.
+            Ces plaques demeurent un symbole poignant de notre désir de communiquer et de connecter, flottant dans l'espace comme des témoins silencieux de notre existence, dans l'attente d'être un jour découvertes par des yeux venus d'ailleurs.
         </span>
 
         <img id="alienn1" class="fondFinal" src="public/fond_final.png" alt="plaque pioneer une planète">
@@ -287,7 +343,7 @@
 
         <div class="informationPulsar information">
             <h2>Diagramme des pulsars</h2>
-            <span>L'un des éléments les plus remarquables de cette plaque est un schéma précis qui vise à indiquer l'emplacement de la Terre dans notre galaxie, la Voie Lactée. Ce dessin, connu sous le nom de "diagramme des pulsars", utilise 14 lignes qui rayonnent depuis le même point pour représenter des pulsars, qui sont des étoiles à neutrons émettant des ondes radio périodiques. Ces lignes sont marquées avec des chiffres binaires qui codent les périodes des pulsars, permettant ainsi de déterminer leur position dans l'espace. Au bout de chaque ligne, un code binaire indique la période de rotation du pulsar correspondant, une donnée unique qui peut être utilisée pour identifier ces étoiles dans la galaxie. En se référant à ces pulsars, une civilisation extraterrestre serait en théorie capable de localiser notre système solaire.</span>
+            <span>L'un des éléments les plus remarquables de cette plaque est un schéma précis qui vise à indiquer l'emplacement de la Terre dans notre galaxie, la Voie Lactée. Ce dessin, connu sous le nom de "diagramme des pulsars", utilise 14 lignes qui rayonnent depuis le même point pour représenter des pulsars, qui sont des étoiles à neutrons émettant des ondes radio périodiques. Ces lignes sont marquées avec des chiffres binaires qui codent les périodes des pulsars, permettant ainsi de déterminer leur position dans l'espace. En se référant à ces pulsars, une civilisation extraterrestre serait en théorie capable de localiser notre système solaire.</span>
         </div>
 
         <div class="informationAtome information">
