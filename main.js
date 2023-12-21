@@ -45,6 +45,10 @@ let planetes = {
     outro1: {div: document.getElementById('outro1'), element: document.getElementById('outroo1')},
     outro2: {div: document.getElementById('outro2'), element: document.getElementById('outroo2')},
     outro3: {div: document.getElementById('outro3'), element: document.getElementById('outroo3')},
+    alien1: {div: document.getElementById('alien1'), element: document.getElementById('alienn1')},
+    alien2: {div: document.getElementById('alien2'), element: document.getElementById('alienn2')},
+    alien3: {div: document.getElementById('alien3'), element: document.getElementById('alienn3')},
+    alien4: {div: document.getElementById('alien4'), element: document.getElementById('alienn4')},
 };
 
 let angle = 0;
@@ -250,6 +254,27 @@ function animerPlanete(planete, isVisible) {
             });
         }
     }
+    if(planete.div.id == 'alien1' || planete.div.id == 'alien4'){
+        if(isVisible){
+            gsap.to(planete.element,{
+                duration: 1,
+                opacity: 1,
+                display: 'block',
+                ease: "power1.out"
+            });
+        }
+    }
+    if(planete.div.id == 'alien2' || planete.div.id == 'alien3'){
+        if(isVisible){
+            gsap.to(planete.element,{
+                duration: 1,
+                top: '25%',
+                ease: "power1.out"
+            });
+
+        }
+    }
+
     if(planete.div.id == 'intro'){
         if(isVisible){
             gsap.to(planete.obj.position, {
