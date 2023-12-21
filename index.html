@@ -20,7 +20,7 @@
                 z-index: 1;
             }
             .cont{
-                height: 200vh;
+                height: 120vh;
             }
             .mapContainer{
                 z-index: 3;
@@ -34,6 +34,8 @@
                 display: flex;
                 justify-content: center;
                 padding-bottom:50px ;
+                display: none;
+                opacity: 0;
             }
             #map{
                 transform: scale(2);
@@ -41,7 +43,7 @@
             .sonde{
                 position: absolute;
                 left: 45%;
-                top: 0;
+                top: 50%;
             }
             .compteur{
                 position: fixed;
@@ -51,11 +53,15 @@
                 z-index: 9;
                 font-size: 3rem;
                 font-weight: lighter;
+                opacity: 0;
+                display: none;
             }
             .clickableElement{
                 cursor: pointer;
             }
             .cercle{
+                display: none;
+                opacity: 0;
                 position: fixed;
                 z-index: 3;
                 transform: scale(0.5);
@@ -142,26 +148,62 @@
                 left: -50%;
                 transform: translate(-50%, -50%);
             }
+            .introo{
+                position: fixed;
+                z-index: 9;
+                color: white;
+                font-size: 4rem;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                width: 70%;
+                text-align: center;
+                font-weight: bold;
+                line-height: 75px;
+                opacity: 0;
+                display: none;
+            }
 		</style>
 	</head>
 	<body>
         <span id="compteur" class="compteur"> <span id="valeur">0</span> km</span>
 
+        <span id="introo1" class="introo">
+            En mars 1972 et avril 1973, les sondes Pioneer 10 et 11 furent lancées, débutant un périple sans précédent à travers le système solaire.
+        </span>
+
+        <span id="introo2" class="introo" >
+            À leur bord, un message unique destiné à d'éventuelles civilisations extraterrestres : des représentations symboliques de notre espèce et notre emplacement dans l'univers.
+        </span>
+
+        <span id="introo3" class="introo">
+            Ce site vous invite à découvrir l'histoire et la signification de ces témoignages de notre quête de connexion interstellaire, connus sous le nom de PLAQUES PIONEER.
+        </span>
+
+        <div id="intro1" class="intro1 cont">
+        </div>
+        <div class="intro2 cont" id="intro2">
+        </div>
+        <div class="intro3 cont" id="intro3">
+        </div>
         <div id="intro" class="intro cont"></div>
         <div id="div-terre" class="cont1 cont"></div>
         <div id="div-mars" class="cont2 cont"></div>
         <div id="div-jupiter" class="cont3 cont"></div>
         <div class="cont4 cont"></div>
 
-        <span id="informationTerre" class="informationPlanete informationTerre">
-            Alors que la sonde Pioneer quitte la proximité de la Terre, emportant avec elle la célèbre plaque Pioneer, nous sommes invités à réfléchir sur le début d'une odyssée extraordinaire. Cette mission marque non seulement un exploit remarquable dans l'exploration spatiale, mais aussi un message d'espoir et de curiosité envoyé dans l'infini cosmique. La plaque, gravée de symboles et de représentations, témoigne de notre existence et de notre désir de connecter avec d'éventuelles intelligences au-delà de notre monde.
-        </span>
-        <span id="informationMars" class="informationPlanete informationMars">
-            Lorsque la sonde Pioneer survole Mars, la planète rouge se dévoile dans toute sa splendeur mystérieuse. Mars, souvent imaginée comme le prochain grand bond pour l'humanité, représente un monde de questions non résolues et de possibilités futures. La fascination de l'humanité pour cet astre voisin s'étend à travers notre histoire et notre culture, symbolisant notre soif de découverte et notre désir ardent d'explorer. Alors que Pioneer continue son voyage audacieux à travers le système solaire, elle porte avec elle notre quête collective pour comprendre les secrets de Mars, une quête qui incarne l'esprit d'exploration et d'aventure qui caractérise notre espèce.
-        </span>
-        <span id="informationJupiter" class="informationPlanete informationJupiter">
-            En s'approchant de Jupiter, la sonde Pioneer nous offre une vue imprenable sur le géant gazeux, un titan parmi les planètes de notre système solaire. Jupiter, avec ses bandes colorées et sa grande tache rouge tourbillonnante, est un monde de mystères extrêmes et de phénomènes atmosphériques spectaculaires. Cette planète massive exerce une influence significative sur notre système solaire, son immense gravité agissant comme un gardien contre les objets célestes errants. En contemplant Jupiter à travers les yeux de Pioneer, nous sommes témoins de la grandeur et de la puissance de la nature, rappelant l'importance de notre quête pour comprendre notre place dans l'univers. L'exploration de Jupiter par Pioneer symbolise notre désir perpétuel de repousser les frontières de la connaissance et de découvrir ce qui se trouve au-delà de l'horizon connu.
-        </span>
+        <div id="informationTerre" class="informationPlanete informationTerre">
+            <h2>TERRE</h2>
+            <span> Alors que la sonde Pioneer quitte la proximité de la Terre, emportant avec elle la célèbre plaque Pioneer, nous sommes invités à réfléchir sur le début d'une odyssée extraordinaire. Cette mission marque non seulement un exploit remarquable dans l'exploration spatiale, mais aussi un message d'espoir et de curiosité envoyé dans l'infini cosmique. La plaque, gravée de symboles et de représentations, témoigne de notre existence et de notre désir de connecter avec d'éventuelles intelligences au-delà de notre monde. </span>
+        </div>
+        <div id="informationMars" class="informationPlanete informationMars">
+            <h2>MARS</h2>
+            <span>Lorsque la sonde Pioneer survole Mars, la planète rouge se dévoile dans toute sa splendeur mystérieuse. Mars, souvent imaginée comme le prochain grand bond pour l'humanité, représente un monde de questions non résolues et de possibilités futures. La fascination de l'humanité pour cet astre voisin s'étend à travers notre histoire et notre culture, symbolisant notre soif de découverte et notre désir ardent d'explorer. Alors que Pioneer continue son voyage audacieux à travers le système solaire, elle porte avec elle notre quête collective pour comprendre les secrets de Mars, une quête qui incarne l'esprit d'exploration et d'aventure qui caractérise notre espèce. </span>
+        </div>
+        <div id="informationJupiter" class="informationPlanete informationJupiter">
+            <h2>Jupiter</h2>
+            <span>En s'approchant de Jupiter, la sonde Pioneer nous offre une vue imprenable sur le géant gazeux, un titan parmi les planètes de notre système solaire. Jupiter, avec ses bandes colorées et sa grande tache rouge tourbillonnante, est un monde de mystères extrêmes et de phénomènes atmosphériques spectaculaires. Cette planète massive exerce une influence significative sur notre système solaire, son immense gravité agissant comme un gardien contre les objets célestes errants. En contemplant Jupiter à travers les yeux de Pioneer, nous sommes témoins de la grandeur et de la puissance de la nature, rappelant l'importance de notre quête pour comprendre notre place dans l'univers. L'exploration de Jupiter par Pioneer symbolise notre désir perpétuel de repousser les frontières de la connaissance et de découvrir ce qui se trouve au-delà de l'horizon connu.</span>
+        </div>
 
         <svg id="humain" class="cercle" width="120" height="120" xmlns="http://www.w3.org/2000/svg">
             <circle cx="60" cy="60" r="50" stroke="white" fill="transparent" stroke-width="5" />

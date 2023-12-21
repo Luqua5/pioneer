@@ -35,17 +35,20 @@ let troisiemeObject = null;
 let mars = null;
 let jupiter = null;
 let planetes = {
+    intro1: {div: document.getElementById('intro1'), element: document.getElementById('introo1')},
+    intro2: {div: document.getElementById('intro2'), element: document.getElementById('introo2')},
+    intro3: {div: document.getElementById('intro3'), element: document.getElementById('introo3')},
     pioneer: { obj: null, div: null},
-    terre: { obj: null, div: null, description: null, distance: 150, passed: false },
-    mars: { obj: null, div: null, description: null, distance: 300000000, passed: false },
-    jupiter: { obj: null, div: null, description: null, distance: 591000000, passed: false },
+    terre: { obj: null, div: null, description: null, distance: 150, passed: false, x: 0, y: 0 },
+    mars: { obj: null, div: null, description: null, distance: 300000000, passed: false, x: 60, y: 0 },
+    jupiter: { obj: null, div: null, description: null, distance: 591000000, passed: false, x: 170, y: -50 },
 };
 
 let angle = 0;
 const rayonOrbite = 3; // Distance du satellite à la planète
 const vitesseOrbitale = 0.01; // Vitesse de l'orbite
 
-const positionPlaneteAvant = { x: -15, y: 0, z: -25 }; // Position de la planète
+const positionPlaneteAvant = { x: -50, y: 0, z: -25 }; // Position de la planète
 const positionPlanete = { x: 4, y: 0, z: -5 }; // Position de la planète
 const positionPlaneteApres = { x: 8, y: 0, z: 0 }; // Position de la planète
 
@@ -63,9 +66,9 @@ loader.load( './public/Pioneer_1.20.glb', function ( gltf ) {
     scene.add( gltf.scene );
     my3DObject = gltf.scene;
     my3DObject.scale.set(4.5, 4.5, 4.5);  
-    my3DObject.position.y = 0;
-    my3DObject.position.x = 0;
-    my3DObject.position.z = -0.5;
+    my3DObject.position.y = positionTabletteInvisible.y;
+    my3DObject.position.x = positionTabletteInvisible.x;
+    my3DObject.position.z = positionTabletteInvisible.z;
     my3DObject.rotation.set(1.65, 0, 0);
     planetes.pioneer.obj = my3DObject;
     planetes.pioneer.div = document.getElementById('intro');
@@ -77,8 +80,8 @@ loader.load( './public/Petite_terre.glb', function ( gltf ) {
     scene.add( gltf.scene );
     deuxiemeObject = gltf.scene;
     deuxiemeObject.scale.set(2.15, 2.15, 2.15);
-    deuxiemeObject.position.x = positionPlanete.x;
-    deuxiemeObject.position.z = positionPlanete.z;
+    deuxiemeObject.position.x = positionPlaneteAvant.x;
+    deuxiemeObject.position.z = positionPlaneteAvant.z;
     deuxiemeObject.rotation.x = 2;
     planetes.terre.obj = deuxiemeObject;
     planetes.terre.div = document.getElementById('div-terre');
@@ -187,9 +190,6 @@ function onScrollDiv() {
     for (let key in planetes) {
         const planete = planetes[key];
         const rect = planete.div.getBoundingClientRect();
-        if(planete.div.id == 'div-terre'){
-        console.log(rect, window.innerHeight);
-        }
         const isVisible = rect.top < 0 && rect.bottom > 0;
         animerPlanete(planete, isVisible);
     }
@@ -199,6 +199,24 @@ function onScrollDiv() {
 
 function animerPlanete(planete, isVisible) {
     if(!planete) return;
+    if(planete.div.id == 'intro1' || planete.div.id == 'intro2' || planete.div.id == 'intro3'){
+        if(isVisible){
+            gsap.to(planete.element,{
+                duration: 1,
+                opacity: 1,
+                display: 'block',
+                ease: "power1.out"
+            });
+
+        }else{
+            gsap.to(planete.element,{
+                duration: 1,
+                opacity: 0,
+                display: 'none',
+                ease: "power1.out"
+            });
+        }
+    }
     if(planete.div.id == 'intro'){
         if(isVisible){
             gsap.to(planete.obj.position, {
@@ -220,6 +238,12 @@ function animerPlanete(planete, isVisible) {
                 display: 'none',
                 ease: "power1.out"
             });
+            gsap.to('.compteur', {
+                duration: 1,
+                opacity: 0,
+                display: 'none',
+                ease: "power1.out"
+            });
         }else{
             gsap.to(planete.obj.position, {
                 duration: 1, 
@@ -228,16 +252,21 @@ function animerPlanete(planete, isVisible) {
                 z: positionTabletteInvisible.z, 
                 ease: "power1.out"
             });
+        }        
+    }else{
+        if(isVisible && !planete.passed){
             gsap.to('.mapContainer', {
                 duration: 1,
                 opacity: 1,
                 display: 'flex',
                 ease: "power1.out"
             });
-        }        
-    }else{
-        if(isVisible && !planete.passed){
-            console.log(planete);
+            gsap.to('.compteur', {
+                duration: 1,
+                opacity: 1,
+                display: 'block',
+                ease: "power1.out"
+            });
             planete.passed = true;
             gsap.to(planete.obj.position, {
                 duration: 1, 
@@ -259,6 +288,12 @@ function animerPlanete(planete, isVisible) {
                 duration: 0.1,
                 opacity: 0,
                 display:'none',
+                ease: "power1.out"
+            });
+            gsap.to('.sonde',{
+                duration: 1,
+                x: planete.x,
+                y: planete.y,
                 ease: "power1.out"
             });
             animerValeurCompteur(parseInt(compteur.innerText), planete.distance, 1500);
