@@ -42,6 +42,9 @@ let planetes = {
     terre: { obj: null, div: null, description: null, distance: 150, passed: false, x: 0, y: 0 },
     mars: { obj: null, div: null, description: null, distance: 300000000, passed: false, x: 60, y: 0 },
     jupiter: { obj: null, div: null, description: null, distance: 591000000, passed: false, x: 170, y: -50 },
+    outro1: {div: document.getElementById('outro1'), element: document.getElementById('outroo1')},
+    outro2: {div: document.getElementById('outro2'), element: document.getElementById('outroo2')},
+    outro3: {div: document.getElementById('outro3'), element: document.getElementById('outroo3')},
 };
 
 let angle = 0;
@@ -201,6 +204,36 @@ function animerPlanete(planete, isVisible) {
     if(!planete) return;
     if(planete.div.id == 'intro1' || planete.div.id == 'intro2' || planete.div.id == 'intro3'){
         if(isVisible){
+            gsap.to(planete.element,{
+                duration: 1,
+                opacity: 1,
+                display: 'block',
+                ease: "power1.out"
+            });
+
+        }else{
+            gsap.to(planete.element,{
+                duration: 1,
+                opacity: 0,
+                display: 'none',
+                ease: "power1.out"
+            });
+        }
+    }
+    if(planete.div.id == 'outro1' || planete.div.id == 'outro2' || planete.div.id == 'outro3'){
+        if(isVisible){
+            gsap.to('.mapContainer', {
+                duration: 1,
+                opacity: 0,
+                display: 'none',
+                ease: "power1.out"
+            });
+            gsap.to('.compteur', {
+                duration: 1,
+                opacity: 0,
+                display: 'none',
+                ease: "power1.out"
+            });
             gsap.to(planete.element,{
                 duration: 1,
                 opacity: 1,
